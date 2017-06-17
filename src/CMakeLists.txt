@@ -133,6 +133,14 @@ endif()
 add_custom_target(unwind DEPENDS ${LIBUNWIND_TARGETS})
 
 install(TARGETS ${LIBUNWIND_TARGETS}
-        LIBRARY DESTINATION lib${LLVM_LIBDIR_SUFFIX}
-        ARCHIVE DESTINATION lib${LLVM_LIBDIR_SUFFIX})
+        LIBRARY DESTINATION lib${LLVM_LIBDIR_SUFFIX} COMPONENT unwind
+        ARCHIVE DESTINATION lib${LLVM_LIBDIR_SUFFIX} COMPONENT unwind)
+
+if (NOT CMAKE_CONFIGURATION_TYPES)
+  add_custom_target(install-unwind
+          DEPENDS unwind install-unwind-headers
+          COMMAND "${CMAKE_COMMAND}"
+          -DCMAKE_INSTALL_COMPONENT=unwind
+          -P "${LIBUNWIND_BINARY_DIR}/cmake_install.cmake")
+endif()
 
