@@ -331,6 +331,7 @@ if (NOT LIBUNWIND_CXX_INCLUDE_PATHS STREQUAL "")
   include_directories("${LIBUNWIND_CXX_INCLUDE_PATHS}")
 endif()
 
+add_subdirectory(include)
 add_subdirectory(src)
 
 if (LIBUNWIND_INCLUDE_DOCS)
